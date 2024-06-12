@@ -7,6 +7,7 @@ parsed_sample:
     config_state: "normal"
     control_flag: "active"
     cpu_occupation: "64"
+    dba_profile_id: "1"
     dba_type: ""
     description: "3ZR9I2J8XNTNS760"
     distance_m: "55"
@@ -62,6 +63,8 @@ parsed_sample:
     service_profile_multicast_mode: "Unconcern"
     service_profile_name: "new_link"
     software_work_mode: "normal"
+    t_cont:
+      - "0"
     tdm_port_type: "E1"
     tdm_service_type: "TDMoGem"
     temperature: "35"

@@ -1,0 +1,14 @@
+Value List T_CONT (\d+)
+Value DBA_PROFILE_ID (\d+)
+		
+Start
+  ^\s*Notes:\s*\*\s*indicates\s*Discrete\s*TCONT\(TCONT\s*Unbound\)\s* -> TCONTS
+
+TCONTS
+  ^\s*-+
+  ^\s+<T-CONT\s+$T_CONT>\s+DBA\s*Profile-ID:\s*$DBA_PROFILE_ID\s*$$ -> Record
+  ^\s*<Gem\s*Index\s*\d+\s*>\s*$$ -> End
+  ^\s*$$
+  ^. -> Error
+
+End
