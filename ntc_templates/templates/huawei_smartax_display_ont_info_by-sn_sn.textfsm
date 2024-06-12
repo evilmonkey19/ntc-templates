@@ -1,30 +1,40 @@
-Value FSP (\d+\/\d+\/\d+)
+Value FSP (\d+\/(\s)?\d+\/\d+)
 Value ONT_ID (\d+)
 Value CONTROL_FLAG (\w+)
+Value RUN_STATE (\w+)
 Value CONFIG_STATE (\w+)
 Value MATCH_STATE (\w+)
+Value ONT_LLID (\d+)
 Value DBA_TYPE (\w+)
 Value DISTANCE_M (\d+)
 Value LAST_DISTANCE_M (\d+)
+Value RTT_TQ (\d+)
 Value BATTERY_STATE (\w+\s*\w*)
 Value POWER_TYPE (\w+)
 Value MEMORY_OCCUPATION (\d+)
 Value CPU_OCCUPATION (\d+)
-Value TEMPERATURE (\d+\(\w\))
-Value AUTHENTIC_TYPE (\S+)
-Value SERIAL_NUMBER (\w+\s*\(*\S*\))
-Value MANAGEMENT_MODE (\w+)
+Value TEMPERATURE (\d+(\(\w\))?)
+Value AUTHENTIC_TYPE (SN-auth|MAC-auth)
+Value SERIAL_NUMBER (\w+\s*(\(*\S*\))?)
+Value MANAGEMENT_MODE (OMCI|OAM)
 Value SOFTWARE_WORK_MODE (\w+)
+Value MULTICAST_MODE (IGMP-Snooping)
 Value ISOLATION_STATE (\w+)
 Value IP_0_ADDRESS_MASK (\S+)
 Value IP_1_ADDRESS_MASK (\S+)
 Value DESCRIPTION (\S+)
 Value LAST_DOWN_CAUSE (\S+)
-Value LAST_UP_TIME (\w+\/\w+\/\w+\s\w+:\w+:\w+\+\w+:\w+)
-Value LAST_DOWN_TIME (\w+\/\w+\/\w+\s\w+:\w+:\w+\+\w+:\w+)
-Value LAST_DYING_GASP_TIME (\w+\/\w+\/\w+\s\w+:\w+:\w+\+\w+:\w+)
+Value LAST_UP_TIME (\w+(\/|-)\w+(\/|-)\w+\s\w+:\w+:\w+\+\w+:\w+)
+Value LAST_DOWN_TIME (\w+(\/|-)\w+(\/|-)\w+\s\w+:\w+:\w+\+\w+:\w+)
+Value LAST_DYING_GASP_TIME (\w+(\/|-)\w+(\/|-)\w+\s\w+:\w+:\w+\+\w+:\w+)
 Value LAST_RESTART_REASON (\w+)
+Value ONT_ONLINE_DURATION (\d+\sday\(s\),\s\d+\shour\(s\),\s\d+\sminute\(s\),\s\d+\ssecond\(s\))
 Value TYPE_C_SUPPORT (\w+\s*\w*)
+Value TYPE_D_SUPPORT (\w+\s*\w*)
+Value ONT_NNI_TYPE (\w+)
+Value ONT_ACTUAL_NNI_TYPE (\w+)
+Value LAST_ONT_ACTUAL_NNI_TYPE (\w+)
+Value FIBER_ROUTE (\w+)
 Value INTEROPERABILITY_MODE (\S+)
 Value POWER_REDUCTION_STATUS (\w+)
 Value FEC_UPSTREAM_STATE (\S+)
@@ -51,9 +61,9 @@ Value RING_PORT_AUTO_SHUTDOWN (\w+)
 Value RING_DETECT_FREQUENCY (\w+\s\(\w*\))
 Value RING_RESUME_INTERVAL (\w+\s\(\w*\))
 Value RING_DETECT_PERIOD (\w+\s\(\w*\))
-Value MULTICAST_FORWARD_MODE (\w+)
-Value MULTICAST_FORWARD_VLAN (\w+)
-Value MULTICAST_MODE (\w+)
+Value SERVICE_PROFILE_MULTICAST_FORWARD_MODE (\w+)
+Value SERVICE_PROFILE_MULTICAST_FORWARD_VLAN (\w+)
+Value SERVICE_PROFILE_MULTICAST_MODE (\w+)
 Value UPSTREAM_IGMP_PACKET_FORWARD_MODE (\w+)
 Value UPSTREAM_IGMP_PACKET_FORWARD_VLAN (\w+)
 Value UPSTREAM_IGMP_PACKET_PRIORITY (\w+)
@@ -71,21 +81,28 @@ Start
   ^\s+F/S/P\s+:\s+${FSP}
   ^\s+ONT-ID\s+:\s+${ONT_ID}
   ^\s+Control\s+flag\s+:\s+${CONTROL_FLAG}
+  ^\s+Run\sstate\s+:\s+${RUN_STATE}
   ^\s+Config\s+state\s+:\s+${CONFIG_STATE}
   ^\s+Match\s+state\s+:\s+${MATCH_STATE}
+  ^\s+ONT\s+LLID\s+:\s+${ONT_LLID}
   ^\s+DBA\s+type\s+:\s+${DBA_TYPE}
   ^\s+ONT\s+distance\(m\)\s+:\s+${DISTANCE_M}
   ^\s+ONT\s+last\s+distance\(m\)\s+:\s+${LAST_DISTANCE_M}
+  ^\s+ONT\s+RTT\(TQ\)\s+:\s*${RTT_TQ}
   ^\s+ONT\s+battery\s+state\s+:\s+${BATTERY_STATE}
   ^\s+ONT\s+power\s+type\s+:\s+${POWER_TYPE}
-  ^\s+Memory\s+occupation\s+:\s+${MEMORY_OCCUPATION}%
-  ^\s+CPU\s+occupation\s+:\s+${CPU_OCCUPATION}%
+  ^\s+Memory\s+occupation\s+:\s+${MEMORY_OCCUPATION}(%)?
+  ^\s+CPU\s+occupation\s+:\s+${CPU_OCCUPATION}(%)?
   ^\s+Temperature\s+:\s+${TEMPERATURE}
   ^\s+Authentic\s+type\s+:\s+${AUTHENTIC_TYPE}
   ^\s+SN\s+:\s+${SERIAL_NUMBER}
   ^\s+Management\s+mode\s+:\s+${MANAGEMENT_MODE}
   ^\s+Software\s+work\s+mode\s+:\s+${SOFTWARE_WORK_MODE}
+  ^\s+Multicast\s+mode\s+:\s+${MULTICAST_MODE}
   ^\s+Isolation\s+state\s+:\s+${ISOLATION_STATE}
+  ^\s+ONT\s+NNI\s+type\s+:\s+${ONT_NNI_TYPE}
+  ^\s+ONT\s+actual\s+NNI\s+type\s+:\s+${ONT_ACTUAL_NNI_TYPE}
+  ^\s+Last\s+ONT\s+actual\s+NNI\s+type\s*:\s+${LAST_ONT_ACTUAL_NNI_TYPE}
   ^\s+ONT\s+IP\s+0\s+address\/mask\s+:\s+${IP_0_ADDRESS_MASK}
   ^\s+ONT\s+IP\s+1\s+address\/mask\s+:\s+${IP_1_ADDRESS_MASK}
   ^\s+Description\s+:\s+${DESCRIPTION}
@@ -94,13 +111,16 @@ Start
   ^\s+Last\s+down\s+time\s+:\s+${LAST_DOWN_TIME}
   ^\s+Last\s+dying\s+gasp\s+time\s+:\s+${LAST_DYING_GASP_TIME}
   ^\s+Last\s+restart\s+reason\s+:\s+${LAST_RESTART_REASON}
+  ^\s+ONT\s+online\s+duration\s+:\s+${ONT_ONLINE_DURATION}
   ^\s+Type\s+C\s+support\s+:\s+${TYPE_C_SUPPORT}
+  ^\s+Type\s+D\s+support\s+:\s+${TYPE_D_SUPPORT}
   ^\s+Interoperability-mode\s+:\s+${INTEROPERABILITY_MODE}
   ^\s+Power\s+reduction\s+status\s+:\s+${POWER_REDUCTION_STATUS}
   ^\s+FEC\s+upstream\s+state\s+:\s+${FEC_UPSTREAM_STATE}
   ^\s+VS-ID\s+:\s+${VS_ID}
   ^\s+VS\s+name\s+:\s+${VS_NAME}
   ^\s+Global\s+ONT-ID\s+:\s+${GLOBAL_ONT_ID}
+  ^\s+Fiber\s+route\s+:\s+${FIBER_ROUTE}
   ^\s+- -> Next
   ^\s+VoIP\s+configure\s+method\s+:\s+${VOIP_CONFIGURE_METHOD}
   ^\s+- -> Next
@@ -108,10 +128,10 @@ Start
   ^\s+Line\s+profile\s+name\s+:\s+${LINE_PROFILE_NAME}
   ^\s+- -> Next
   ^\s+FEC\s+upstream\s+switch\s+:\s*${FEC_UPSTREAM_SWITCH}
-  ^\s+OMCC\s+encrypt\s+switch\s+:\s*${OMCC_ENCRYPT_SWITCH}
+  ^\s+OMCC\s+(E|e)ncrypt\s+switch\s+:\s*${OMCC_ENCRYPT_SWITCH}
   ^\s+Qos\s+mode\s+:\s*${QOS_MODE}
   ^\s+Mapping\s+mode\s+:\s*${MAPPING_MODE}
-  ^\s+TR069\s+management\s+:\s*${TR069_MANAGEMENT}
+  ^\s+T(R|r)069\s+management\s+:\s*${TR069_MANAGEMENT}
   ^\s+TR069\s+IP\s+index\s+:\s*${TR069_IP_INDEX}
   ^\s+Service\s+profile\s+ID\s+:\s+${SERVICE_PROFILE_ID}
   ^\s+Service\s+profile\s+name\s+:\s+${SERVICE_PROFILE_NAME}
@@ -123,9 +143,9 @@ Start
   ^\s+Ring\s+port\s+auto-shutdown\s+:\s+${RING_PORT_AUTO_SHUTDOWN}
   ^\s+Ring\s+detect\s+frequency\s+:\s+${RING_RESUME_INTERVAL}
   ^\s+Ring\s+resume\s+interval\s+:\s+${RING_DETECT_PERIOD}
-  ^ \s+Multicast\s+forward\s+mode\s+:\s+${MULTICAST_FORWARD_MODE}
-  ^\s+Multicast\s+forward\s+VLAN\s+:\s+${MULTICAST_FORWARD_VLAN}
-  ^\s+Multicast\s+mode\s+:\s+${MULTICAST_MODE}
+  ^ \s+Multicast\s+forward\s+mode\s+:\s+${SERVICE_PROFILE_MULTICAST_FORWARD_MODE}
+  ^\s+Multicast\s+forward\s+VLAN\s+:\s+${SERVICE_PROFILE_MULTICAST_FORWARD_VLAN}
+  ^\s+Multicast\s+mode\s+:\s+${SERVICE_PROFILE_MULTICAST_MODE}
   ^\s+Upstream\s+IGMP\s+packet\s+forward\s+mode\s+:\s+${UPSTREAM_IGMP_PACKET_FORWARD_MODE}
   ^\s+Upstream\s+IGMP\s+packet\s+forward\s+VLAN\s+:\s+${UPSTREAM_IGMP_PACKET_FORWARD_VLAN}
   ^\s+Upstream\s+IGMP\s+packet\s+priority\s+:\s+${UPSTREAM_IGMP_PACKET_PRIORITY}
